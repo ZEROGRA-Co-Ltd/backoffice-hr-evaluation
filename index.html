@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>バックオフィス部門 人事評価制度 | 株式会社ZEROGRA</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --primary-light: #818cf8;
+            --secondary: #8b5cf6;
+            --accent: #ec4899;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --dark: #0f172a;
+            --gray-50: #f8fafc;
+            --gray-100: #f1f5f9;
+            --gray-200: #e2e8f0;
+            --gray-300: #cbd5e1;
+            --gray-600: #475569;
+            --gray-800: #1e293b;
+            --gray-900: #0f172a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.8;
+            color: var(--gray-800);
+            background: var(--gray-50);
+            overflow-x: hidden;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            position: relative;
+            overflow: hidden;
+            padding: 6rem 2rem 4rem;
+            text-align: center;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            color: white;
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: white;
+            margin-bottom: 1rem;
+            text-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
+            letter-spacing: -0.02em;
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            color: rgba(255, 255, 255, 0.95);
+            margin-bottom: 2rem;
+            font-weight: 400;
+        }
+
+        /* Navigation */
+        .nav {
+            background: white;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .nav-item {
+            padding: 1.2rem 2rem;
+            cursor: pointer;
+            color: var(--gray-600);
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-item:hover {
+            color: var(--primary);
+            background: var(--gray-50);
+        }
+
+        .nav-item.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+            background: var(--gray-50);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Cards */
+        .card {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
+            transform: translateY(-2px);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--dark);
+        }
+
+        .card-content {
+            color: var(--gray-600);
+            line-height: 1.8;
+        }
+
+        /* Info Boxes */
+        .info-box {
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid;
+        }
+
+        .info-box.primary {
+            background: rgba(99, 102, 241, 0.1);
+            border-color: var(--primary);
+        }
+
+        .info-box.success {
+            background: rgba(16, 185, 129, 0.1);
+            border-color: var(--success);
+        }
+
+        .info-box.warning {
+            background: rgba(245, 158, 11, 0.1);
+            border-color: var(--warning);
+        }
+
+        .info-box-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+
+        /* Lists */
+        .list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .list-item {
+            padding: 1rem;
+            margin-bottom: 0.5rem;
+            background: var(--gray-50);
+            border-radius: 8px;
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .list-item:hover {
+            background: var(--gray-100);
+            transform: translateX(4px);
+        }
+
+        .list-item-icon {
+            width: 28px;
+            height: 28px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            background: linear-gradient(135deg, var(--primary-light), var(--secondary));
+            color: white;
+            flex-shrink: 0;
+        }
+
+        /* Tables */
+        .table-container {
+            overflow-x: auto;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            margin-bottom: 2rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+
+        thead {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+        }
+
+        th {
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        tbody tr:hover {
+            background: var(--gray-50);
+        }
+
+        tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .current-row {
+            background: rgba(245, 158, 11, 0.1) !important;
+            font-weight: 600;
+        }
+
+        .highlight-row {
+            background: rgba(16, 185, 129, 0.15) !important;
+            font-weight: 600;
+        }
+
+        .table-number {
+            font-weight: 600;
+            color: var(--primary);
+            font-family: 'Courier New', monospace;
+        }
+
+        .table-increase {
+            color: var(--success);
+            font-weight: 600;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 3rem 2rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--primary-light), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .footer-text {
+            color: var(--gray-300);
+            font-size: 0.95rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+
+            .nav-item {
+                padding: 1rem 1.5rem;
+                font-size: 0.9rem;
+            }
+
+            .container {
+                padding: 2rem 1rem;
+            }
+
+            .card {
+                padding: 1.5rem;
+            }
+
+            th, td {
+                padding: 0.75rem;
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Print Styles */
+        @media print {
+            .hero, .nav, .footer {
+                display: none;
+            }
+
+            .section {
+                display: block !important;
+                page-break-after: always;
+            }
+
+            .card {
+                box-shadow: none;
+                border: 1px solid var(--gray-300);
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <div class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">📋 2025年度版</div>
+            <h1>バックオフィス部門<br>人事評価制度</h1>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <div class="nav-item active" onclick="showSection(0)">
+                <span>📖</span> 制度概要
+            </div>
+            <div class="nav-item" onclick="showSection(1)">
+                <span>💰</span> 昇給制度
+            </div>
+            <div class="nav-item" onclick="showSection(2)">
+                <span>📊</span> シミュレーション
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Section 1: 制度概要 -->
+        <div class="section active" id="section-0">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">📋</div>
+                    <h2 class="card-title">1. 昇給の目的</h2>
+                </div>
+                <div class="card-content">
+                    <p>当社では、バックオフィス職においても<strong>「勤続・経験・責任範囲の拡大」</strong>を報酬に正しく反映するため、半期ごとの自動昇給制度を導入しています。</p>
+                    <br>
+                    <p>この制度は、日々の安定運用を土台としながら、会社とともに成長していく社員に対して着実な報酬上昇を約束する仕組みです。</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">⚙️</div>
+                    <h2 class="card-title">2. 昇給の仕組み</h2>
+                </div>
+                <div class="card-content">
+                    <ul class="list">
+                        <li class="list-item">
+                            <div class="list-item-icon">📅</div>
+                            <div>
+                                <strong>昇給は年2回（1月・7月）に実施します。</strong>
+                            </div>
+                        </li>
+                        <li class="list-item">
+                            <div class="list-item-icon">📈</div>
+                            <div>
+                                <strong>昇給率は半期ごとに＋5.0％（＝前回比105.0％）です。</strong>
+                            </div>
+                        </li>
+                        <li class="list-item">
+                            <div class="list-item-icon">🎁</div>
+                            <div>
+                                <strong>会社全体の業績に応じて決算賞与を支給します。</strong>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">📐</div>
+                    <h2 class="card-title">3. 昇給ルール</h2>
+                </div>
+                <div class="card-content">
+                    <div class="info-box primary">
+                        <div class="info-box-title">✅ 基本ルール</div>
+                        <p>半期ごとに一律5.0％の昇給率を適用します。</p>
+                    </div>
+
+                    <div class="info-box success">
+                        <div class="info-box-title">💡 計算式</div>
+                        <p style="font-size: 1.1rem; font-weight: 600; color: var(--primary); margin-top: 0.5rem;">
+                            次回年俸 = 現在年俸 × 1.05
+                        </p>
+                    </div>
+
+                    <div class="info-box warning">
+                        <div class="info-box-title">📊 目安</div>
+                        <p>半期ごとに約2〜2.5万円の月給上昇が見込まれます。</p>
+                        <p>昇給は評価結果に関わらず、自動的に適用されます。</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">🎯</div>
+                    <h2 class="card-title">4. 昇給制度の特徴</h2>
+                </div>
+                <div class="card-content">
+                    <ul class="list">
+                        <li class="list-item">
+                            <div class="list-item-icon">💰</div>
+                            <div>
+                                <strong>決算賞与</strong><br>
+                                会社全体の業績に応じて決算賞与を支給し、成果を還元します。
+                            </div>
+                        </li>
+                        <li class="list-item">
+                            <div class="list-item-icon">✨</div>
+                            <div>
+                                <strong>透明性の高い評価</strong><br>
+                                自動昇給により、評価の不透明さがなく、誰もが平等に報酬が増加します。
+                            </div>
+                        </li>
+                        <li class="list-item">
+                            <div class="list-item-icon">🚀</div>
+                            <div>
+                                <strong>キャリアの見通し</strong><br>
+                                3年後の報酬を事前に把握できるため、長期的なライフプランが立てやすくなります。
+                            </div>
+                        </li>
+                        <li class="list-item">
+                            <div class="list-item-icon">🤝</div>
+                            <div>
+                                <strong>安心感の提供</strong><br>
+                                勤続年数に応じて確実に報酬が上がるため、安定した働き方が実現できます。
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">⚠️</div>
+                    <h2 class="card-title">5. 昇給に関する注意事項</h2>
+                </div>
+                <div class="card-content">
+                    <ul class="list">
+                        <li class="list-item">
+                            <div class="list-item-icon">📌</div>
+                            <div>昇給率は、会社業績や経営計画に応じて見直す場合があります。</div>
+                        </li>
+                        <li class="list-item">
+                            <div class="list-item-icon">🔄</div>
+                            <div>昇給は勤続を前提とした制度であり、途中退職・契約変更の場合は対象外となる場合があります。</div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 2: 昇給制度 -->
+        <div class="section" id="section-1">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">📈</div>
+                    <h2 class="card-title">昇給のメリット</h2>
+                </div>
+                <div class="card-content">
+                    <ul class="list">
+                        <li class="list-item">
+                            <div class="list-item-icon">💰</div>
+                            <div>
+                                <strong>決算賞与</strong><br>
+                                会社全体の業績に応じて決算賞与を支給し、成果を還元します。
+                            </div>
+                        </li>
+                        <li class="list-item">
+                            <div class="list-item-icon">✨</div>
+                            <div>
+                                <strong>透明性の高い評価</strong><br>
+                                自動昇給により、評価の不透明さがなく、誰もが平等に報酬が増加します。
+                            </div>
+                        </li>
+                        <li class="list-item">
+                            <div class="list-item-icon">🚀</div>
+                            <div>
+                                <strong>キャリアの見通し</strong><br>
+                                3年後の報酬を事前に把握できるため、長期的なライフプランが立てやすくなります。
+                            </div>
+                        </li>
+                        <li class="list-item">
+                            <div class="list-item-icon">🤝</div>
+                            <div>
+                                <strong>安心感の提供</strong><br>
+                                勤続年数に応じて確実に報酬が上がるため、安定した働き方が実現できます。
+                            </div>
+                        </li>
+                        <li class="list-item">
+                            <div class="list-item-icon">💪</div>
+                            <div>
+                                <strong>モチベーション維持</strong><br>
+                                定期的な昇給により、継続的な成長意欲を保つことができます。
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 3: シミュレーション -->
+        <div class="section" id="section-2">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">📊</div>
+                    <h2 class="card-title">昇給シミュレーション（向こう3年間）</h2>
+                </div>
+                <div class="card-content">
+                    <p style="margin-bottom: 2rem; color: var(--gray-600);">
+                        現在の年俸450万円（月給37.5万円）から、2026年1月の次回昇給を起点に3年間の推移をご覧いただけます。
+                    </p>
+
+                    <div style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.05), rgba(139, 92, 246, 0.05)); border-radius: 16px; padding: 3rem 2rem; margin: 2rem 0;">
+                        <div style="display: flex; align-items: flex-end; justify-content: space-between; gap: 1rem; position: relative;">
+                            <!-- Step 1 -->
+                            <div style="flex: 1; text-align: center; position: relative;">
+                                <div style="background: linear-gradient(135deg, #f59e0b, #f97316); border-radius: 12px; padding: 1.5rem 1rem; box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3); position: relative; z-index: 1;">
+                                    <div style="color: white; font-size: 0.8rem; font-weight: 600; margin-bottom: 0.5rem;">現在</div>
+                                    <div style="color: white; font-size: 1.6rem; font-weight: 900; margin-bottom: 0.25rem;">¥4.5M</div>
+                                    <div style="color: rgba(255,255,255,0.9); font-size: 0.75rem;">月給¥37.5万</div>
+                                </div>
+                            </div>
+                            
+                            <!-- Step 2 -->
+                            <div style="flex: 1; text-align: center; position: relative; margin-bottom: 2rem;">
+                                <div style="background: linear-gradient(135deg, #6366f1, #8b5cf6); border-radius: 12px; padding: 1.5rem 1rem; box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3); position: relative; z-index: 1;">
+                                    <div style="color: white; font-size: 0.8rem; font-weight: 600; margin-bottom: 0.5rem;">2026年1月</div>
+                                    <div style="color: white; font-size: 1.6rem; font-weight: 900; margin-bottom: 0.25rem;">¥4.73M</div>
+                                    <div style="color: rgba(255,255,255,0.9); font-size: 0.75rem;">月給¥39.4万</div>
+                                </div>
+                            </div>
+                            
+                            <!-- Step 3 -->
+                            <div style="flex: 1; text-align: center; position: relative; margin-bottom: 4rem;">
+                                <div style="background: linear-gradient(135deg, #6366f1, #8b5cf6); border-radius: 12px; padding: 1.5rem 1rem; box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3); position: relative; z-index: 1;">
+                                    <div style="color: white; font-size: 0.8rem; font-weight: 600; margin-bottom: 0.5rem;">2026年7月</div>
+                                    <div style="color: white; font-size: 1.6rem; font-weight: 900; margin-bottom: 0.25rem;">¥4.96M</div>
+                                    <div style="color: rgba(255,255,255,0.9); font-size: 0.75rem;">月給¥41.3万</div>
+                                </div>
+                            </div>
+                            
+                            <!-- Step 4 -->
+                            <div style="flex: 1; text-align: center; position: relative; margin-bottom: 6rem;">
+                                <div style="background: linear-gradient(135deg, #6366f1, #8b5cf6); border-radius: 12px; padding: 1.5rem 1rem; box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3); position: relative; z-index: 1;">
+                                    <div style="color: white; font-size: 0.8rem; font-weight: 600; margin-bottom: 0.5rem;">2027年1月</div>
+                                    <div style="color: white; font-size: 1.6rem; font-weight: 900; margin-bottom: 0.25rem;">¥5.21M</div>
+                                    <div style="color: rgba(255,255,255,0.9); font-size: 0.75rem;">月給¥43.4万</div>
+                                </div>
+                            </div>
+                            
+                            <!-- Step 5 -->
+                            <div style="flex: 1; text-align: center; position: relative; margin-bottom: 8rem;">
+                                <div style="background: linear-gradient(135deg, #6366f1, #8b5cf6); border-radius: 12px; padding: 1.5rem 1rem; box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3); position: relative; z-index: 1;">
+                                    <div style="color: white; font-size: 0.8rem; font-weight: 600; margin-bottom: 0.5rem;">2027年7月</div>
+                                    <div style="color: white; font-size: 1.6rem; font-weight: 900; margin-bottom: 0.25rem;">¥5.47M</div>
+                                    <div style="color: rgba(255,255,255,0.9); font-size: 0.75rem;">月給¥45.6万</div>
+                                </div>
+                            </div>
+                            
+                            <!-- Step 6 -->
+                            <div style="flex: 1; text-align: center; position: relative; margin-bottom: 10rem;">
+                                <div style="background: linear-gradient(135deg, #6366f1, #8b5cf6); border-radius: 12px; padding: 1.5rem 1rem; box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3); position: relative; z-index: 1;">
+                                    <div style="color: white; font-size: 0.8rem; font-weight: 600; margin-bottom: 0.5rem;">2028年1月</div>
+                                    <div style="color: white; font-size: 1.6rem; font-weight: 900; margin-bottom: 0.25rem;">¥5.74M</div>
+                                    <div style="color: rgba(255,255,255,0.9); font-size: 0.75rem;">月給¥47.9万</div>
+                                </div>
+                            </div>
+                            
+                            <!-- Step 7 -->
+                            <div style="flex: 1; text-align: center; position: relative; margin-bottom: 12rem;">
+                                <div style="background: linear-gradient(135deg, #10b981, #059669); border-radius: 12px; padding: 1.5rem 1rem; box-shadow: 0 6px 16px rgba(16, 185, 129, 0.4); position: relative; z-index: 1; border: 2px solid rgba(255,255,255,0.3);">
+                                    <div style="color: white; font-size: 0.8rem; font-weight: 600; margin-bottom: 0.5rem;">2028年7月</div>
+                                    <div style="color: white; font-size: 1.8rem; font-weight: 900; margin-bottom: 0.25rem;">¥6.03M</div>
+                                    <div style="color: rgba(255,255,255,0.9); font-size: 0.75rem;">月給¥50.3万</div>
+                                    <div style="position: absolute; top: -1.5rem; right: -0.5rem; background: #fbbf24; color: #78350f; padding: 0.25rem 0.75rem; border-radius: 12px; font-size: 0.7rem; font-weight: 700; box-shadow: 0 2px 8px rgba(251, 191, 36, 0.5);">3年後🎉</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="table-container" style="margin-top: 3rem;">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>時期</th>
+                                    <th>年俸</th>
+                                    <th>月給</th>
+                                    <th>月給増額</th>
+                                    <th>年俸増額</th>
+                                    <th>増加率</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="current-row">
+                                    <td><strong>現在（2025年12月まで）</strong></td>
+                                    <td class="table-number">¥4,500,000</td>
+                                    <td class="table-number">¥375,000</td>
+                                    <td>-</td>
+                                    <td>-</td>
+                                    <td>-</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>2026年1月</strong></td>
+                                    <td class="table-number">¥4,725,000</td>
+                                    <td class="table-number">¥393,750</td>
+                                    <td class="table-increase">+¥18,750</td>
+                                    <td class="table-increase">+¥225,000</td>
+                                    <td>105.0%</td>
+                                </tr>
+                                <tr>
+                                    <td>2026年7月</td>
+                                    <td class="table-number">¥4,961,250</td>
+                                    <td class="table-number">¥413,438</td>
+                                    <td class="table-increase">+¥19,688</td>
+                                    <td class="table-increase">+¥236,250</td>
+                                    <td>105.0%</td>
+                                </tr>
+                                <tr>
+                                    <td>2027年1月</td>
+                                    <td class="table-number">¥5,209,313</td>
+                                    <td class="table-number">¥434,110</td>
+                                    <td class="table-increase">+¥20,672</td>
+                                    <td class="table-increase">+¥248,063</td>
+                                    <td>105.0%</td>
+                                </tr>
+                                <tr>
+                                    <td>2027年7月</td>
+                                    <td class="table-number">¥5,469,778</td>
+                                    <td class="table-number">¥455,815</td>
+                                    <td class="table-increase">+¥21,705</td>
+                                    <td class="table-increase">+¥260,465</td>
+                                    <td>105.0%</td>
+                                </tr>
+                                <tr>
+                                    <td>2028年1月</td>
+                                    <td class="table-number">¥5,743,267</td>
+                                    <td class="table-number">¥478,606</td>
+                                    <td class="table-increase">+¥22,791</td>
+                                    <td class="table-increase">+¥273,489</td>
+                                    <td>105.0%</td>
+                                </tr>
+                                <tr class="highlight-row">
+                                    <td><strong>2028年7月（3年後）</strong></td>
+                                    <td class="table-number">¥6,030,430</td>
+                                    <td class="table-number">¥502,536</td>
+                                    <td class="table-increase">+¥23,930</td>
+                                    <td class="table-increase">+¥287,163</td>
+                                    <td>105.0%</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="info-box success" style="margin-top: 2rem;">
+                        <div class="info-box-title">📈 3年間の成長サマリー</div>
+                        <p><strong>現在：</strong>年俸450万円（月給37.5万円）</p>
+                        <p><strong>3年後：</strong>年俸603万円（月給50.3万円）</p>
+                        <p><strong>増加額：</strong>年俸+153万円（月給+12.8万円）</p>
+                        <p><strong>増加率：</strong>約34.0%の年俸アップ</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">💡</div>
+                    <h2 class="card-title">制度のポイント</h2>
+                </div>
+                <div class="card-content">
+                    <ul class="list">
+                        <li class="list-item">
+                            <div class="list-item-icon">📅</div>
+                            <div><strong>次回昇給：</strong>2026年1月から開始</div>
+                        </li>
+                        <li class="list-item">
+                            <div class="list-item-icon">📈</div>
+                            <div><strong>昇給タイミング：</strong>毎年1月と7月の年2回</div>
+                        </li>
+                        <li class="list-item">
+                            <div class="list-item-icon">🎯</div>
+                            <div><strong>昇給率：</strong>一律5.0%（全員平等）</div>
+                        </li>
+                        <li class="list-item">
+                            <div class="list-item-icon">✨</div>
+                            <div><strong>透明性：</strong>将来の報酬が明確に予測可能</div>
+                        </li>
+                        <li class="list-item">
+                            <div class="list-item-icon">🚀</div>
+                            <div><strong>着実な成長：</strong>3年で年俸600万円超に到達</div>
+                        </li>
+                        <li class="list-item">
+                            <div class="list-item-icon">🎁</div>
+                            <div><strong>決算賞与：</strong>会社業績に応じて支給</div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-logo">株式会社ZEROGRA</div>
+            <p class="footer-text">バックオフィス部門 人事評価制度</p>
+            <p class="footer-text" style="margin-top: 0.5rem;">© 2025 ZEROGRA Inc. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        function showSection(index) {
+            // Hide all sections
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => section.classList.remove('active'));
+
+            // Remove active class from all nav items
+            const navItems = document.querySelectorAll('.nav-item');
+            navItems.forEach(item => item.classList.remove('active'));
+
+            // Show selected section
+            document.getElementById('section-' + index).classList.add('active');
+
+            // Add active class to selected nav item
+            navItems[index].classList.add('active');
+
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
